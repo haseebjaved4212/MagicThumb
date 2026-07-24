@@ -10,3 +10,4 @@ iMAGEKIT_URL_ENDPOINT=os.getenv("IMAGEKIT_URL_ENDPOINT" , "")
 
 
 DATABASE_URL = "sqlite:///./Thumbnail Gen.db"
+
