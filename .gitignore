@@ -67,3 +67,8 @@ coverage.xml
 *.swo
 .DS_Store
 Thumbs.db
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
