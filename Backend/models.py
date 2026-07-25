@@ -19,9 +19,15 @@ class Thambnail(SQLModel , table=True):
     error_message: Optional[str] = Field(default=None)
     created_at: datetime = Field(default_factory=_now)
     
+    job: Optional["Job"] = Relationship(back_populates="thumbnails")
 
-
-
+class Job(SQLModel, table=True):
+    id : str = Field(default_factory=_uuid,primary_key=True)
+    prompt: str = Field(default=None)
+    num_thumbnails: int = Field(default=1 , ge=1 , le=3)
+    headshot_url : str = Field(default="")
+    status : str = Field(default="pending")
+    created_at: datetime = Field(default_factory=_now)
     
 
-    
+    thambnails : List["Thambnail"] = Relationship(back_populates="job")
