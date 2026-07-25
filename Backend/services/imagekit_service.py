@@ -21,5 +21,12 @@ def upload_file(file_bytes: bytes , file_name : str , folder : str, content_type
     return result.url
 
 
-
-
+def get_variants(base_url: str) -> dict:
+    """ Return 3 Variants using ImageKit Transformations """
+    return  {
+       "youtube": f"{base_url}?tr=w-1280,h-720,c-maintain-ratio,fo-auto",
+       "shorts" : f"{base_url}?tr=w-1080,h-1920,c-maintain-ratio,fo-auto",
+       "square" : f"{base_url}?tr=w-1080,h-1080,c-maintain-ratio,fo-auto",
+    }
+       
+        
