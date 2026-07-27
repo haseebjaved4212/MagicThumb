@@ -42,10 +42,8 @@ headshot_url: str) ->  bytes:
                 },],
     )
 
-    for content_block in response.output["content"]:
-        if content_block["type"] == "file_generation":
-            image_bytes = content_block["file_contents"]
-            return image_bytes
-
-    raise ValueError("No image generated")
+    for item in response.output:
+       if item.type == "image_generation_call" and item.result:
+        return base64.b64decode(item.result)
         
+    raise RuntimeError("No image generation result found in the response ")
