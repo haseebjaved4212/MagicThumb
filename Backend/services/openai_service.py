@@ -19,8 +19,33 @@ headshot_url: str) ->  bytes:
 ''
     ) 
 
-    response = client.response.create(
+    response = await client.response.create(
         model="gpt-4o",
-        input="Generate an image of gray tabby cat hugging an other with an orange scarf",
-        tools=[{"type": "file_generation"}],
+        input=[
+            {"role": "user", 
+            "content": [
+                {"type": "input_image" , "url": headshot_url},
+                {"type": "text", "text": full_prompt},
+            ]},
+        ],
+
+        tools=[
+            {
+                "type": "image_generation",
+                "model": "gpt-image-2",
+                "size": "1536x1024",
+                "quality": "high",
+                "output_format": "png"
+                
+                
+                
+                },],
     )
+
+    for content_block in response.output["content"]:
+        if content_block["type"] == "file_generation":
+            image_bytes = content_block["file_contents"]
+            return image_bytes
+
+    raise ValueError("No image generated")
+        
